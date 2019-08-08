@@ -51,5 +51,42 @@ public class Array {
         return size == 0;
     }
 
+    /**
+     * 向所有元素后添加一个新元素
+     * @param element 待添加元素
+     */
+    public void addLast(int element){
+        int index = size;
+        add(index, element);
+    }
+
+    /**
+     * 向所有元素前添加一个新元素
+     * @param element 待添加元素
+     */
+    public void addFirst(int element){
+        int index = size;
+        add(index, element);
+    }
+    /**
+     * 在 index 索引的位置插入一个新元素 element
+     * @param index 索引
+     * @param element 待添加元素
+     */
+    public void add(int index, int element){
+
+        if(size == data.length)
+            throw new IllegalArgumentException("Add failed. Array is full.");
+
+        if(index < 0 || index > size)
+            throw new IllegalArgumentException("Add failed. Require index >= 0 and index <= size.");
+
+        for(int i = size - 1; i >= index ; i --)
+            data[i + 1] = data[i];
+
+        data[index] = element;
+
+        size ++;
+    }
 
 }
