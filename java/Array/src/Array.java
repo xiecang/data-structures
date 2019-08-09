@@ -95,6 +95,7 @@ public class Array {
 
     /**
      * 获取 index 位置的元素
+     *
      * @param index 索引
      * @return 元素值
      */
@@ -107,13 +108,93 @@ public class Array {
 
     /**
      * 修改 index 索引位置的元素为 element
-     * @param index 索引
+     *
+     * @param index   索引
      * @param element 修改为 element
      */
-    public void set(int index, int element){
-        if(index < 0 || index >= size)
+    public void set(int index, int element) {
+        if (index < 0 || index >= size)
             throw new IllegalArgumentException("Set failed. Index is illegal.");
         data[index] = element;
+    }
+
+    /**
+     * 查找数组中是否有元素 element
+     *
+     * @param element 待查找元素
+     * @return 是否存在
+     */
+    public boolean contains(int element) {
+        for (int i = 0; i < size; i++) {
+            if (data[i] == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 查找数组中元素 element 所在的索引，如果不存在元素e，则返回-1
+     *
+     * @param element 待查找元素
+     * @return 元素所在索引，不存在返回 -1
+     */
+    public int find(int element) {
+        for (int i = 0; i < size; i++) {
+            if (data[i] == element) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 从数组中删除 index 位置的元素, 返回删除的元素
+     *
+     * @param index 待删除的位置
+     * @return 被删除的元素
+     */
+    public int remove(int index) {
+        if (index < 0 || index >= size)
+            throw new IllegalArgumentException("Remove failed. Index is illegal.");
+
+        int ret = data[index];
+
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
+        }
+        size--;
+
+        return ret;
+    }
+
+    /**
+     * 从数组中删除第一个元素, 返回删除的元素
+     *
+     * @return 被删除的元素
+     */
+    public int removeFirst() {
+        return remove(0);
+    }
+
+    /**
+     * 从数组中删除最后一个元素, 返回删除的元素
+     *
+     * @return 被删除的元素
+     */
+    public int removeLast() {
+        return remove(size - 1);
+    }
+
+    /**
+     * 从数组中删除元素 element
+     * @param element 待删除的元素
+     */
+    public void removeElement(int element) {
+        int index = find(element);
+        if (index != -1) {
+            remove(index);
+        }
     }
 
     @Override
