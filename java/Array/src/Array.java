@@ -78,12 +78,11 @@ public class Array<E> {
      * @param element 待添加元素
      */
     public void add(int index, E element) {
-
-        if (size == data.length)
-            throw new IllegalArgumentException("Add failed. Array is full.");
-
         if (index < 0 || index > size)
             throw new IllegalArgumentException("Add failed. Require index >= 0 and index <= size.");
+
+        if (size == data.length)
+            resize(2 * data.length);
 
         for (int i = size - 1; i >= index; i--)
             data[i + 1] = data[i];
@@ -166,6 +165,11 @@ public class Array<E> {
         size--;
         // loitering objects
         data[size] = null;
+
+        int newCapacity = data.length / 2;
+        if (size == newCapacity) {
+            resize(newCapacity);
+        }
         return ret;
     }
 
@@ -212,5 +216,17 @@ public class Array<E> {
         }
         res.append(']');
         return res.toString();
+    }
+
+    /**
+     * 将数组空间的容量变成 newCapacity 大小
+     * @param newCapacity 新的数组容量
+     */
+    private void resize(int newCapacity){
+
+        E[] newData = (E[])new Object[newCapacity];
+        for(int i = 0 ; i < size ; i ++)
+            newData[i] = data[i];
+        data = newData;
     }
 }
