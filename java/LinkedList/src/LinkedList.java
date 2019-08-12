@@ -27,11 +27,11 @@ public class LinkedList<E> {
         }
     }
 
-    private Node head;
+    private Node dummyHead;
     int size;
 
     public LinkedList() {
-        head = null;
+        dummyHead = new Node(null, null);
         size = 0;
     }
 
@@ -50,19 +50,6 @@ public class LinkedList<E> {
     }
 
     /**
-     * 在链表头添加新的元素 element
-     *
-     * @param element 新元素
-     */
-    public void addFirst(E element) {
-//        Node node = new Node(element);
-//        node.next = head;
-//        head = node;
-        head = new Node(element, head);
-        size++;
-    }
-
-    /**
      * 在链表的 index(0-based) 位置添加新的元素 element
      * 在链表中不是一个常用的操作，练习用:)
      *
@@ -74,24 +61,34 @@ public class LinkedList<E> {
             throw new IllegalArgumentException("Add failed. Illegal index.");
         }
 
-        if (index == 0) {
-            addFirst(element);
-        } else {
-            Node prev = head;
-            for (int i = 0; i < index - 1; i++) {
-                prev = prev.next;
-            }
+        Node prev = dummyHead;
+        for (int i = 0; i < index; i++) {
+            prev = prev.next;
+        }
 //            Node node = new Node(element, prev.next);
 //            node.next = prev.next;
 //            prev.next = node;
-            prev.next = new Node(element, prev.next);
+        prev.next = new Node(element, prev.next);
 
-            size++;
-        }
+        size++;
+
+    }
+
+    /**
+     * 在链表头添加新的元素 element
+     *
+     * @param element 新元素
+     */
+    public void addFirst(E element) {
+//        Node node = new Node(element);
+//        node.next = head;
+//        head = node;
+        add(0, element);
     }
 
     /**
      * 在链表末尾添加新的元素 element
+     *
      * @param element 待添加新元素
      */
     public void addLast(E element) {
