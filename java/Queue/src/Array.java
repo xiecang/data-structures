@@ -104,6 +104,13 @@ public class Array<E> {
         return data[index];
     }
 
+    E getLast() {
+        return get(size - 1);
+    }
+
+    E getFirst() {
+        return get(0);
+    }
 
     /**
      * 修改 index 索引位置的元素为 element
@@ -167,7 +174,7 @@ public class Array<E> {
         data[size] = null;
 
         int newCapacity = data.length / 2;
-        if(size == data.length / 4 && data.length / 2 != 0) {
+        if (size == data.length / 4 && data.length / 2 != 0) {
             resize(newCapacity);
         }
         return ret;
@@ -220,12 +227,13 @@ public class Array<E> {
 
     /**
      * 将数组空间的容量变成 newCapacity 大小
+     *
      * @param newCapacity 新的数组容量
      */
-    private void resize(int newCapacity){
+    private void resize(int newCapacity) {
 
-        E[] newData = (E[])new Object[newCapacity];
-        for(int i = 0 ; i < size ; i ++)
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++)
             newData[i] = data[i];
         data = newData;
     }
