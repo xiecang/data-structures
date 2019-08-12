@@ -94,4 +94,92 @@ public class LinkedList<E> {
     public void addLast(E element) {
         add(size, element);
     }
+
+    /**
+     * 在链表的 index(0-based) 位置添加新的元素 element
+     * 在链表中不是一个常用的操作，练习用:)
+     *
+     * @param index 索引位置
+     */
+    public E get(int index) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Add failed. Illegal index.");
+        }
+
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        return cur.e;
+    }
+
+    /**
+     * @return 返回链表的第一个元素
+     */
+    public E getFirst() {
+        return get(0);
+    }
+
+    /**
+     * @return 返回链表的最后一个元素
+     */
+    public E getLast() {
+        return get(size - 1);
+    }
+
+
+    /**
+     * 修改链表的第index(0-based)个位置的元素为 element
+     * 在链表中不是一个常用的操作，练习用:)
+     *
+     * @param index   元素索引
+     * @param element 待修改元素
+     */
+    public void set(int index, E element) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Set failed. Illegal index.");
+        }
+
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        cur.e = element;
+    }
+
+    /**
+     * @param element 待查找元素
+     * @return 查找链表中是否有元素 element
+     */
+    public boolean contains(E element) {
+
+        Node cur = dummyHead.next;
+        while (cur != null) {
+            if (cur.e.equals(element)) {
+                return true;
+            }
+            cur = cur.next;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder res = new StringBuilder();
+
+        //        Node cur = dummyHead.next;
+//        while(cur != null){
+//            res.append(cur + "->");
+//            cur = cur.next;
+//        }
+        for(Node cur = dummyHead.next ; cur != null ; cur = cur.next) {
+            res.append(cur + "->");
+        }
+        res.append("NULL");
+
+        return res.toString();
+    }
+
+}
 }
